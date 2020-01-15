@@ -1,0 +1,9 @@
+/* Add application styles & imports to this file! */
+
+.clickable{
+  cursor: pointer;
+}
+
+.detailimg {
+  max-width: 50%;
+}

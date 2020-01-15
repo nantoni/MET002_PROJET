@@ -1,0 +1,52 @@
+    <div class="col-12">
+      <div
+        class="card m-4 border border-0"
+        style="box-shadow: 0 2px 4px 0 rgba(0,0,0,.12); border-radius: 8px;"
+        *ngFor="let group of userGroups"
+      >
+        <div
+          class="card-img-top"
+          style="max-height:200px;overflow:hidden;background-color: #6c757d;box-shadow: 0 0 4px 0 rgba(0,0,0,.12);border-radius: 8px 8px 0 0;"
+        >
+          <img
+            style="margin-top: -15%;"
+            class="img-fluid pl-5 pr-5"
+            src="../../../assets/{{ group.image }}"
+            alt="{{ group.image }}"
+          />
+        </div>
+        <div class="card-body" style="background-color: ghostwhite;">
+          <h1>{{ group.name }}</h1>
+          <p class="card-text">
+            {{ group.description }}
+          </p>
+        </div>
+        <div class="dropdown">
+            <button
+              type="button"
+              class="btn btn-light dropdown-toggle m-2"
+              style="box-shadow: none"
+              data-toggle="dropdown"
+            >
+              <i class="material-icons">
+                emoji_people
+              </i>
+              Members
+            </button>
+            <div class="dropdown-menu">
+              <a
+                *ngFor="let member of group.members"
+                class="dropdown-item"
+                >{{ member.firstName }}_{{ member.lastName }}</a
+              >
+            </div>
+          </div>
+        <div class="input-group p-2">
+          <input type="text" class="form-control" placeholder="Add member by mail..." [(ngModel)]="group.newMail"/>
+          <div class="input-group-append">
+            <button class="btn btn-primary" (click)="addUserByMail(group.groupId, group.newMail)">Add</button>
+          </div>
+        </div>
+        <button class="btn btn-danger m-2" (click)="quitGroup(group.groupId)">Quit</button>
+      </div>
+    </div>

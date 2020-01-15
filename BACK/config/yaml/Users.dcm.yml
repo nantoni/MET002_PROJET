@@ -1,0 +1,84 @@
+Users:
+    type: entity
+    table: users
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        email:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+        login:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+        password:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+        firstname:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+            column: firstName
+        lastname:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+            column: lastName
+        address:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+        postcode:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+            column: postCode
+        city:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+        country:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+        phone:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+        registerdate:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+            column: registerDate
+    lifecycleCallbacks: {  }

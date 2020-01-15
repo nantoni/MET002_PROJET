@@ -1,0 +1,87 @@
+<div class="col-10">
+<div
+  class="card m-4 border border-0"
+  style="box-shadow: 0 2px 4px 0 rgba(0,0,0,.12); border-radius: 8px;"
+>
+  <div
+    class="card-img-top"
+    style="max-height:200px;overflow:hidden;background-color: #6c757d;box-shadow: 0 0 4px 0 rgba(0,0,0,.12);border-radius: 8px 8px 0 0;"
+  >
+    <img
+      style="margin-top: -15%;"
+      class="img-fluid pl-5 pr-5"
+      src="../../../../assets/{{ imagePath }}"
+      alt="{{ imagePath }}"
+    />
+    <!-- <div style="text-align:center;cursor: pointer;">
+      <p>Choose image...</p>
+    </div> -->
+  </div>
+  <div class="card-body" style="background-color: ghostwhite;">
+    <form [formGroup]="frmGrp">
+      <div class="input-group input-group-lg mb-2">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Title</span>
+        </div>
+        <input type="text" formControlName="title" class="form-control" />
+      </div>
+
+      <div class="input-group input-group-sm mb-2">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Description</span>
+        </div>
+        <input type="text" formControlName="description" class="form-control" />
+      </div>
+
+      <div class="row">
+        <div class="col-6 input-group input-group-sm mb-2 pr-0">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="material-icons">
+                date_range
+              </i></span
+            >
+          </div>
+          <input type="text" formControlName="date" placeholder="yyyy-mm-dd" class="form-control" />
+        </div>
+
+        <div class="col-6 input-group input-group-sm mb-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="material-icons">
+                map
+              </i></span
+            >
+          </div>
+          <input type="text" formControlName="location" class="form-control" />
+        </div>
+      </div>
+    </form>
+
+    <div class="row">
+      <div class="col-6">
+      <div *ngFor="let group of userGroups" class="input-group mb-1 pr-0">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <input type="checkbox" [(ngModel)]="group.isChecked"/>
+          </div>
+        </div>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="{{group.name}}"
+          disabled
+        />
+      </div>
+    </div>
+
+      <div class="mb-3 col-6 ">
+        <button class="btn btn-dark col-12" (click)="sendEvent()">
+          <i class="material-icons">cloud_upload</i>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>

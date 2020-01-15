@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row centered-form">
+    <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="mb-3 mt-3 panel-title">Connexion</h3>
+        </div>
+        <p>mail: emma@emma.fr</p>
+        <p>password: emma</p>
+        <div class="panel-body">
+          <form>
+            <div class="form-group">
+              <input
+                type="email"
+                name="email"
+                [(ngModel)]="mail"
+                class="form-control input-sm"
+                placeholder="Email"
+              />
+            </div>
+
+            <div class="form-group">
+              <input
+                type="password"
+                name="password"
+                [(ngModel)]="password"
+                class="form-control input-sm"
+                placeholder="Mot de passe"
+              />
+            </div>
+
+            <button (click)="signin()" class="btn btn-info btn-block">
+              Signin!
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

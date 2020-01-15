@@ -1,0 +1,47 @@
+<h6 class="mt-3">Order by :</h6>
+
+
+<button
+  class="selected col-12 btn btn-light"
+  type="button"
+  data-toggle="collapse"
+  data-target="#collapseOrderBy"
+  aria-expanded="false"
+  aria-controls="collapseOrderBy"
+>
+  {{ orderBy }}
+</button>
+<div class="collapse" id="collapseOrderBy">
+  <ul class="p-0">
+    <li style="list-style-type: none;" *ngFor="let el of orderList">
+      <a
+        data-toggle="collapse"
+        data-target="#collapseOrderBy"
+        aria-controls="collapseOrderBy"
+        (click)="order(el)"
+        class="col-12 btn {{
+          el === orderBy ? 'btn-light' : 'btn-basic'
+        }} "
+        style="color: black;"
+        >{{ el }}</a
+      >
+    </li>
+  </ul>
+</div>
+
+<h6 class="mt-3">From groups :</h6>
+
+<div>
+  <ul class="p-0">
+    <li style="list-style-type: none;" *ngFor="let el of userGroups">
+      <div
+        (click)="el['selected'] ? el.selected = false : el.selected = true; el['selected'] ? displayGroups.push(el.groupId) : displayGroups.splice(displayGroups.indexOf(el.groupId), 1);changeGroup()"
+        class="col-12 btn {{
+          el['selected'] ? 'btn-light selected' : 'btn-basic'
+        }} "
+        style="color: black;"
+        >{{ el.name }}</div
+      >
+    </li>
+  </ul>
+</div>

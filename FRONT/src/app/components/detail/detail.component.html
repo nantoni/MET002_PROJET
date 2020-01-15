@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="mx-auto col-8">
+    <div class="card m-3">
+      <img (click)='log(current);' class="p-3 detailimg" src="{{current.image}}">
+      <div (click)='log(current);' class="card-body">{{current.nom}}</div>
+        <div (click)='log(current);' class="card-footer bg-secondary text-white">{{current.taille}}L</div>
+        <div (click)='log(current);' class="card-footer bg-warning">{{current.prix}}€</div>
+        <div (click)='log(current);' class="card-footer">{{current.details}}</div>
+        <div (click)='onProduitClick(current)' class="card-footer bg-primary clickable">Ajouter au panier</div>
+    </div>
+  </div>
+</div>

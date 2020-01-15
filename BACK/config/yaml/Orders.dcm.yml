@@ -1,0 +1,57 @@
+Orders:
+    type: entity
+    table: orders
+    uniqueConstraints:
+        id_UNIQUE:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        fkUserid:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: FK_userId
+        date:
+            type: datetime
+            nullable: false
+        trackingnumber:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: trackingNumber
+        address:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+        postcode:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: postCode
+        city:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+        country:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+    lifecycleCallbacks: {  }
