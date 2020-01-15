@@ -36,9 +36,12 @@ $app->add(function ($req, $res, $next) {
 });
 
 
+// To check JWT before accessing route : /api/..
+
 // ROUTES
 // client 
-$app->get('/api/client/{id}', 'getClient');
+$app->get('/clients', 'getClients');
+$app->get('/client/{id}', 'getClient');
 $app->post('/api/client', 'addClient');
 $app->put('/api/client/{id}', 'updateClient');
 $app->delete('/api/client/{id}', 'deleteClient');
@@ -47,9 +50,6 @@ $app->post('/signin', 'signin');
 // produit
 $app->get('/api/produits', 'getProduits');
 $app->get('/api/produit/{id}', 'getProduit');
-
-$app->get('/clients', 'getClients');
-
 
 
 function getClients($request, $response, $args)
@@ -75,20 +75,39 @@ function getClients($request, $response, $args)
 			. "'},\n";
 	}
 	$ret .= "]}";
-	
+
 	return $response->write($ret);
 }
-
-
 
 function getClient($request, $response, $args)
 {
 	$id = $args['id'];
-	// RECHERCHE
-	// ...
-	return $response->write(json_encode('{"a":"b"}'));
 
-	// return $response->write (json_encode($client));
+	global $entityManager;
+	
+	$client = $entityManager->find('Users', $id);
+
+	if ($client === null) {
+		echo "No client found.\n";
+		exit(1);
+	}
+
+	$ret = "{'data': [\n";
+	$ret .= "{'id': '" . $client->getId() 
+		. "', 'email': '" . $client->getEmail() 
+		. "', 'login': '" . $client->getLogin() 
+		. "', 'firstName': '" . $client->getFirstName() 
+		. "', 'lastName': '" . $client->getLastName() 
+		. "', 'address': '" . $client->getAddress() 
+		. "', 'postCode': '" . $client->getPostcode() 
+		. "', 'city': '" . $client->getCity() 
+		. "', 'country': '" . $client->getCountry() 
+		. "', 'phone': '" . $client->getPhone() 
+		. "', 'registerDate': '" . $client->getRegisterDate() 
+		. "'},\n";
+	$ret .= "]}";
+
+	return $response->write($ret);
 }
 
 function addClient($request, $response, $args)
