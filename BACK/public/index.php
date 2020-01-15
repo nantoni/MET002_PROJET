@@ -57,19 +57,26 @@ function getClients($request, $response, $args)
 	global $entityManager;
 	
 	$clientRepository = $entityManager->getRepository('Users');
-
 	$clients = $clientRepository->findAll();
 
-	// echo(sizeof($clients));
-
-
-	// $clientsArray = $clients[0]->toArray();
-	// $json = json_encode($clientsArray);
-	// return $response->write($json);
-
-
-	return $response->write($clients[0]->getEmail());
-	// return $response->write("");
+	$ret = "{'data': [\n";
+	foreach ($clients as $client){
+		$ret .= "{'id': '" . $client->getId() 
+			. "', 'email': '" . $client->getEmail() 
+			. "', 'login': '" . $client->getLogin() 
+			. "', 'firstName': '" . $client->getFirstName() 
+			. "', 'lastName': '" . $client->getLastName() 
+			. "', 'address': '" . $client->getAddress() 
+			. "', 'postCode': '" . $client->getPostcode() 
+			. "', 'city': '" . $client->getCity() 
+			. "', 'country': '" . $client->getCountry() 
+			. "', 'phone': '" . $client->getPhone() 
+			. "', 'registerDate': '" . $client->getRegisterDate() 
+			. "'},\n";
+	}
+	$ret .= "]}";
+	
+	return $response->write($ret);
 }
 
 
