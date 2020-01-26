@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Users
  *
- * @ORM\Table(name="users")
+ * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"}), @ORM\UniqueConstraint(name="login_UNIQUE", columns={"login"}), @ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"})})
  * @ORM\Entity
  */
 class Users
@@ -92,9 +92,9 @@ class Users
     private $phone;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(name="registerDate", type="string", length=45, nullable=false)
+     * @ORM\Column(name="registerDate", type="string", length=45, nullable=true)
      */
     private $registerdate;
 
@@ -352,11 +352,11 @@ class Users
     /**
      * Set registerdate.
      *
-     * @param string $registerdate
+     * @param string|null $registerdate
      *
      * @return Users
      */
-    public function setRegisterdate($registerdate)
+    public function setRegisterdate($registerdate = null)
     {
         $this->registerdate = $registerdate;
 
@@ -366,7 +366,7 @@ class Users
     /**
      * Get registerdate.
      *
-     * @return string
+     * @return string|null
      */
     public function getRegisterdate()
     {

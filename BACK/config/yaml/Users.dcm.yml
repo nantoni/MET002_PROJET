@@ -1,6 +1,16 @@
 Users:
     type: entity
     table: users
+    uniqueConstraints:
+        id_UNIQUE:
+            columns:
+                - id
+        login_UNIQUE:
+            columns:
+                - login
+        email_UNIQUE:
+            columns:
+                - email
     id:
         id:
             type: integer
@@ -76,7 +86,7 @@ Users:
                 fixed: false
         registerdate:
             type: string
-            nullable: false
+            nullable: true
             length: 45
             options:
                 fixed: false

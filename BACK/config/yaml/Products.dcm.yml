@@ -46,4 +46,11 @@ Products:
             options:
                 default: CURRENT_TIMESTAMP
             column: addDate
+        stocknumber:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                default: '0'
+            column: stockNumber
     lifecycleCallbacks: {  }

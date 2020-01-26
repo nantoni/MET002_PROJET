@@ -63,6 +63,13 @@ class Products
      */
     private $adddate = 'CURRENT_TIMESTAMP';
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="stockNumber", type="integer", nullable=false)
+     */
+    private $stocknumber = '0';
+
 
     /**
      * Get id.
@@ -216,5 +223,29 @@ class Products
     public function getAdddate()
     {
         return $this->adddate;
+    }
+
+    /**
+     * Set stocknumber.
+     *
+     * @param int $stocknumber
+     *
+     * @return Products
+     */
+    public function setStocknumber($stocknumber)
+    {
+        $this->stocknumber = $stocknumber;
+
+        return $this;
+    }
+
+    /**
+     * Get stocknumber.
+     *
+     * @return int
+     */
+    public function getStocknumber()
+    {
+        return $this->stocknumber;
     }
 }

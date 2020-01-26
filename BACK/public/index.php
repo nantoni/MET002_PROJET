@@ -8,20 +8,20 @@ $app = new \Slim\App;
 
 const JWT_SECRET = "BrigitteMacronIsASolidFiveOutOfSeven";
 
-$jwt = new \Slim\Middleware\JwtAuthentication([
-	"path" => "/api",
-	"secure" => false,
-	"secret" => JWT_SECRET,
-	"passthrough" => ["/signin"],
-	"attribute" => "decoded_token_data",
-	"algorithm" => ["HS256"],
-	"error" => function ($response, $arguments) {
-		$data = array('ERREUR' => 'ERREUR', 'ERREUR' => 'JWTAUTO');
-		return $response->withHeader("Content-Type", "application/json")->getBody()->write(json_encode($data));
-	}
-]);
+// $jwt = new \Slim\Middleware\JwtAuthentication([
+// 	"path" => "/api",
+// 	"secure" => false,
+// 	"secret" => JWT_SECRET,
+// 	"passthrough" => ["/signin"],
+// 	"attribute" => "decoded_token_data",
+// 	"algorithm" => ["HS256"],
+// 	"error" => function ($response, $arguments) {
+// 		$data = array('ERREUR' => 'ERREUR', 'ERREUR' => 'JWTAUTO');
+// 		return $response->withHeader("Content-Type", "application/json")->getBody()->write(json_encode($data));
+// 	}
+// ]);
 
-$app->add($jwt);
+// $app->add($jwt);
 
 //Enable lazy CORS
 $app->options('/{routes:.+}', function ($request, $response, $args) {
@@ -30,7 +30,8 @@ $app->options('/{routes:.+}', function ($request, $response, $args) {
 $app->add(function ($req, $res, $next) {
     $response = $next($req, $res);
     return $response
-            ->withHeader('Access-Control-Allow-Origin', 'http://localhost:4200')
+            // ->withHeader('Access-Control-Allow-Origin', 'http://localhost:4200')
+            ->withHeader('Access-Control-Allow-Origin', '*')
             ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
 });
@@ -39,19 +40,24 @@ $app->add(function ($req, $res, $next) {
 // To check JWT before accessing route : /api/..
 
 // ROUTES
-// client 
+// __clients__
 $app->get('/clients', 'getClients');
-$app->get('/client/{id}', 'getClient');
 $app->post('/api/client', 'addClient');
-$app->put('/api/client/{id}', 'updateClient');
+$app->get('/api/client/{id}', 'getClient');
+$app->patch('/api/client/{id}', 'updateClient');
 $app->delete('/api/client/{id}', 'deleteClient');
-// authentication
+// __login__
 $app->post('/signin', 'signin');
-// produit
+// __register__
+$app->post('/signup', 'signup');
+// __products__
 $app->get('/api/produits', 'getProduits');
 $app->get('/api/produit/{id}', 'getProduit');
+// __order__
+$app->post('/api/order', 'placeOrder');
 
-
+// WORKING
+// Test request, returns all clients in the database
 function getClients($request, $response, $args)
 {
 	global $entityManager;
@@ -76,9 +82,11 @@ function getClients($request, $response, $args)
 	}
 	$ret .= "]}";
 
-	return $response->write($ret);
+	return $response->withHeader("Content-Type", "application/json")->write($ret);
 }
 
+// WORKING
+// Returns the client corresponding to the id parameter
 function getClient($request, $response, $args)
 {
 	$id = $args['id'];
@@ -107,42 +115,110 @@ function getClient($request, $response, $args)
 		. "'},\n";
 	$ret .= "]}";
 
-	return $response->write($ret);
+	return $response->withHeader("Content-Type", "application/json")->write($ret);
 }
 
-function addClient($request, $response, $args)
+// WORKING
+// Add a client to the database 
+function addClient($request, $response)
 {
+	global $entityManager;
+	$client = new Users();
 	$body = $request->getParsedBody();
 
-	return $response->withHeader("Content-Type", "application/json")->withJson($body);
+	$client->setEmail($body['email']);
+	$client->setLogin($body['login']);
+	$client->setPassword(md5($body['password']));// Password is md5 hashed
+	$client->setFirstname($body['firstName']);
+	$client->setLastname($body['lastName']);
+	$client->setAddress($body['address']);
+	$client->setPostcode($body['postCode']);
+	$client->setCity($body['city']);
+	$client->setCountry($body['country']);
+	if (isset($body['phone'])) { //phone can be NULL
+		$client->setPhone($body['phone']);
+	}
+	$date = new \DateTime('now');
+	$client->setRegisterdate($date->format('Y-m-d H:i:s'));
+
+	$entityManager->persist($client);
+
+	try {
+		$entityManager->flush();
+		echo "Created client with ID " . $client->getId() . "\n";
+	} catch(\Exception $e){
+		echo($e->getMessage());
+		exit(1);
+	}
+
+	return $response->withHeader("Content-Type", "application/json")->write("");
 }
 
-function addLivre($request, $response, $args)
-{
-	$body = $request->getParsedBody();
-	// Parse le body
-	$nom = $body['nom']; // Data du formulaire
-	// AJOUT
-	// ...
-	return $response->write("");
-}
-
+//NOT WORKING
+//Update the client corresponding to the id parameter
 function updateClient($request, $response, $args)
 {
+	global $entityManager;
 	$id = $args['id'];
+	$client = $entityManager->find('Users', $id);
 	$body = $request->getParsedBody();
-	$nom = $body['firstname'];
-	// Mise a jour
-	// ...
-	return $response->write("");
+
+	if ($client === null) {
+		echo "No client found.\n";
+		exit(1);
+	}else{
+		try {
+			if (isset($body['email'])){
+				$client->setEmail($body['email']);
+			}
+			if (isset($body['address'])){
+				$client->setAddress($body['address']);
+			}
+			if (isset($body['postCode'])){
+				$client->setPostcode($body['postCode']);
+			}
+			if (isset($body['city'])){
+				$client->setCity($body['city']);
+			}
+			if (isset($body['country'])){
+				$client->setCountry($body['country']);
+			}
+			if (isset($body['phone'])) {
+				$client->setPhone($body['phone']);
+			}
+			$entityManager->flush();
+			echo "Client with id ". $id ." updated\n";
+		} catch(\Exception $e){
+			echo($e->getMessage());
+			exit(1);
+		}
+	}
+	return $response->withHeader("Content-Type", "application/json")->write("");
 }
 
+//WORKING
+//Delete the client corresponding to the id parameter
 function deleteClient($request, $response, $args)
 {
+	global $entityManager;
 	$id = $args['id'];
-	// Suppression
-	// ...
-	return $response->write("");
+	$client = $entityManager->find('Users', $id);
+
+	if ($client === null) {
+		echo "No client found.\n";
+		exit(1);
+	}else{
+		try {
+			$entityManager->remove($client);
+			$entityManager->flush();
+			echo "Client with id ". $id ." removed\n";
+		} catch(\Exception $e){
+			echo($e->getMessage());
+			exit(1);
+		}
+	}
+
+	return $response->withHeader("Content-Type", "application/json")->write("");
 }
 
 function signin($request, $response, $args)
@@ -170,7 +246,7 @@ function signin($request, $response, $args)
 	}	
 	// Otherwise return error 401
 	else {
-		return $response->withStatus(401);
+		return $response->withHeader("Content-Type", "application/json")->withStatus(401);
 	}
 
 }

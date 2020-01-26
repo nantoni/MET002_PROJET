@@ -10,13 +10,33 @@
 - gestion des clients (nouveau compte-reactive forms, connexion, déconnexion, session, bdd)
 - catalogue des produits
 - recherche (??? à définir) filtrer les produits selon plusieurs critères 
-- panier / paiment
+- panier / paiment -> paiment juste un bouton commander -> votre commande a été validé et enlever les items du stock
 - responsive design 
 - validation des formulaires (directive + pipe) 
 - lazy loading 
 - store 
 
 
+## Routes 
+
+__clients__
+post:/api/client
+get:/api/client/{id}
+patch:/api/client/{id}
+delete:/api/client/{id}
+
+__connection__
+post:/signin 
+
+__inscription__
+post:/signup 
+
+__produits__
+get:/api/produits
+get:/api/produit/{id}
+
+__order__
+post:/api/order
 
 ## ORM 
 
