@@ -8,20 +8,20 @@ $app = new \Slim\App;
 
 const JWT_SECRET = "BrigitteMacronIsASolidFiveOutOfSeven";
 
-// $jwt = new \Slim\Middleware\JwtAuthentication([
-// 	"path" => "/api",
-// 	"secure" => false,
-// 	"secret" => JWT_SECRET,
-// 	"passthrough" => ["/signin"],
-// 	"attribute" => "decoded_token_data",
-// 	"algorithm" => ["HS256"],
-// 	"error" => function ($response, $arguments) {
-// 		$data = array('ERREUR' => 'ERREUR', 'ERREUR' => 'JWTAUTO');
-// 		return $response->withHeader("Content-Type", "application/json")->getBody()->write(json_encode($data));
-// 	}
-// ]);
+$jwt = new \Slim\Middleware\JwtAuthentication([
+	"path" => "/api",
+	"secure" => false,
+	"secret" => JWT_SECRET,
+	"passthrough" => ["/signin"],
+	"attribute" => "decoded_token_data",
+	"algorithm" => ["HS256"],
+	"error" => function ($response, $arguments) {
+		$data = array('ERREUR' => 'ERREUR', 'ERREUR' => 'JWTAUTO');
+		return $response->withHeader("Content-Type", "application/json")->getBody()->write(json_encode($data));
+	}
+]);
 
-// $app->add($jwt);
+$app->add($jwt);
 
 //Enable lazy CORS
 $app->options('/{routes:.+}', function ($request, $response, $args) {
@@ -275,11 +275,11 @@ function signin($request, $response, $args)
 
 }
 
+function signup($request, $response, $args)
+{ }
+
 function getProduits($request, $response, $args)
-{
-	// $path = storage_path("test-data.json");
-	// $json = file_get_contents($path); 
-}
+{ }
 
 function getProduit($request, $response, $args)
 { }
