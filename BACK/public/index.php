@@ -42,8 +42,8 @@ $app->add(function ($req, $res, $next) {
 // ROUTES
 // __clients__
 $app->get('/clients', 'getClients');
-$app->post('/api/client', 'addClient');
 $app->get('/api/client/{id}', 'getClient');
+$app->post('/api/client', 'addClient');
 $app->patch('/api/client/{id}', 'updateClient');
 $app->delete('/api/client/{id}', 'deleteClient');
 // __login__
@@ -154,7 +154,7 @@ function addClient($request, $response)
 	return $response->withHeader("Content-Type", "application/json")->write("");
 }
 
-//NOT WORKING
+//WORKING
 //Update the client corresponding to the id parameter
 function updateClient($request, $response, $args)
 {
@@ -217,31 +217,55 @@ function deleteClient($request, $response, $args)
 			exit(1);
 		}
 	}
-
 	return $response->withHeader("Content-Type", "application/json")->write("");
 }
 
+//WORKING
+//Check credentials (email-password or login-password) and returns a jwt token if they are correct
 function signin($request, $response, $args)
 {
-	$userid = "emma";
-	$name = "emma";
-	$email = "emma@emma.fr";
-	$password = "emma";
-
+	global $entityManager;
 	$body = $request->getParsedBody();
+	$clientRepository = $entityManager->getRepository('Users');
 
-	// If the parameters sent match the test user return JWT 
-	if ($body['email'] == $email && $body['password'] == $password){
+	$auth = false;
+
+	$id = -1;
+
+	if (isset($body['password'])){
+		if(isset($body['email'])){
+			$client = $clientRepository->findOneBy(array('email' => $body['email']));
+			if(!$client){
+				echo "email doesn't match any user\n";
+				exit(1);
+			} else if ($client->getPassword() == md5($body['password'])){
+				$auth = true;
+				$id = $client->getId();
+			}
+		}else if(isset($body['login'])){
+			$client = $clientRepository->findOneBy(array('login' => $body['login']));
+			if(!$body['login']){
+				echo "login doesn't match any user\n";
+				exit(1);
+			} else if ($client->getPassword() == md5($body['password'])){
+				$auth = true;
+				$id = $client->getId();
+			}
+		}
+	}
+
+	// If the parameters sent matched the user return JWT 
+	if ($auth) {
 		$issuedAt = time();
 		$expirationTime = $issuedAt + 60; // jwt valid for 60 seconds from the issued time
 		$payload = array(
-			'userid' => $userid,
+			'userid' => $id,
 			'iat' => $issuedAt,
 			'exp' => $expirationTime
 		);
 		$token_jwt = JWT::encode($payload, JWT_SECRET, "HS256");
 		$response = $response->withHeader("Authorization", "Bearer {$token_jwt}")->withHeader("Content-Type", "application/json");
-		$data = array('first_name' => $name, 'email' => $email);
+		$data = array('firstName' => $client->getFirstName(), 'email' => $client->getEmail());
 		return $response->withHeader("Content-Type", "application/json")->withJson($data);
 	}	
 	// Otherwise return error 401
