@@ -21,7 +21,7 @@ $jwt = new \Slim\Middleware\JwtAuthentication([
 	}
 ]);
 
-// $app->add($jwt);
+$app->add($jwt);
 
 //Enable lazy CORS
 $app->options('/{routes:.+}', function ($request, $response, $args) {
