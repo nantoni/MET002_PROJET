@@ -91,7 +91,7 @@ function signin($request, $response, $args)
 	// If the parameters sent matched the user return JWT 
 	if ($auth) {
 		$issuedAt = time();
-		$expirationTime = $issuedAt + 60; // jwt valid for 60 seconds from the issued time
+		$expirationTime = $issuedAt + 6000; // jwt valid for 6000 seconds (100min) from the issued time
 		$payload = array(
 			'userid' => $id,
 			'iat' => $issuedAt,
