@@ -2,15 +2,15 @@ Users:
     type: entity
     table: users
     uniqueConstraints:
+        email_UNIQUE:
+            columns:
+                - email
         id_UNIQUE:
             columns:
                 - id
         login_UNIQUE:
             columns:
                 - login
-        email_UNIQUE:
-            columns:
-                - email
     id:
         id:
             type: integer

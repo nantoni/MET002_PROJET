@@ -57,11 +57,11 @@ class Products
     private $price;
 
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @ORM\Column(name="addDate", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="addDate", type="string", length=45, nullable=false)
      */
-    private $adddate = 'CURRENT_TIMESTAMP';
+    private $adddate;
 
     /**
      * @var int
@@ -204,7 +204,7 @@ class Products
     /**
      * Set adddate.
      *
-     * @param \DateTime $adddate
+     * @param string $adddate
      *
      * @return Products
      */
@@ -218,7 +218,7 @@ class Products
     /**
      * Get adddate.
      *
-     * @return \DateTime
+     * @return string
      */
     public function getAdddate()
     {

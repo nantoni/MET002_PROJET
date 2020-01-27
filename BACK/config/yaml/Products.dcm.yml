@@ -41,10 +41,11 @@ Products:
             precision: 10
             scale: 2
         adddate:
-            type: datetime
+            type: string
             nullable: false
+            length: 45
             options:
-                default: CURRENT_TIMESTAMP
+                fixed: false
             column: addDate
         stocknumber:
             type: integer
