@@ -313,6 +313,7 @@ function getProduits($request, $response, $args)
 			. '", "addDate": "' . $product->getAddDate() 
 			. '", "stockNumber": "' . $product->getStockNumber() 
 			. '"}';
+		$count++;
 	}
 	$ret .= ']}';
 

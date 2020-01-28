@@ -1,1 +1,11 @@
-<p>produits works!</p>
+<div class="row">
+  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" *ngFor="let item of products | produit:filter">
+    <div class="card mt-4">
+      <img (click)='detail(item);' class="p-3 clickable" src='{{item.image}}'>
+      <div (click)='detail(item);' class="card-body clickable">{{item.name}}</div>
+        <div (click)='detail(item);' class="card-footer bg-secondary text-white">{{item.size/1000}}L</div>
+        <div (click)='detail(item);' class="card-footer bg-warning">{{item.price}}€</div>
+        <div (click)='onProductAddClick(item)' class="card-footer bg-primary clickable">Ajouter au panier</div>
+    </div>
+  </div>
+</div>

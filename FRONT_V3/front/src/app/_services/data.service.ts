@@ -11,6 +11,7 @@ export class DataService {
   getProducts() {
     return this.http.get<any>(`${environment.apiUrl}/api/produits`)
     .pipe(map(res => {
+      console.log(res);
       return res.data;
     }));
   }

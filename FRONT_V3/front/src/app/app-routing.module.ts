@@ -15,10 +15,6 @@ const routes: Routes = [
     loadChildren: () => import('./components/compte/compte.module').then(m => m.CompteModule)
   },
   {
-    path: 'error',
-    loadChildren: () => import('./components/error/error.module').then(m => m.ErrorModule)
-  },
-  {
     path: 'merci-commande',
     loadChildren: () => import('./components/merci-commande/merci-commande.module').then(m => m.MerciCommandeModule)
   },
@@ -33,6 +29,14 @@ const routes: Routes = [
   {
     path: 'signup',
     loadChildren: () => import('./components/signup/signup.module').then(m => m.SignupModule)
+  },
+  {
+    path: 'detail',
+    loadChildren: () => import('./components/detail/detail.module').then(m => m.DetailModule)
+  },
+  {
+    path: '**',
+    loadChildren: () => import('./components/error/error.module').then(m => m.ErrorModule)
   }
 ];
 

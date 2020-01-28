@@ -1,24 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { CatalogueComponent } from './catalogue.component';
 import { FormsModule } from '@angular/forms';
-import { ProduitsComponent } from './produits/produits.component';
 import { ProduitPipe } from '@app/produit.pipe';
+import { DetailComponent } from './detail.component';
 
-import { RechercheComponent } from './recherche/recherche.component';
 
 // Commit won't pass
 const routes: Routes = [
   {
     path: '',
-    component: CatalogueComponent
+    component: DetailComponent
   }
 ];
 
 @NgModule({
   imports: [CommonModule, RouterModule.forChild(routes), FormsModule],
-  declarations: [CatalogueComponent, ProduitsComponent, RechercheComponent, ProduitPipe],
+  declarations: [DetailComponent],
   exports: [RouterModule]
 })
-export class CatalogueModule {}
+export class DetailModule {}

@@ -8,7 +8,7 @@ import { User, Product } from '@app/_models';
   defaults: {
     currentUser: new User(),
     orderBy: 'Size',
-    panier: new Array<Product>(),
+    panier: [],
     currentProduit: new Product()
   }
 })

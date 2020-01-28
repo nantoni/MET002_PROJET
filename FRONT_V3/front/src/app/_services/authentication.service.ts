@@ -55,7 +55,7 @@ export class AuthenticationService {
         this.store.dispatch(
           new SetCurrentUser(JSON.parse(user))
         );
-        this.router.navigate(['catalogue']);
+        this.router.navigate(['/catalogue']);
         return user;
       }));
   }
@@ -64,5 +64,7 @@ export class AuthenticationService {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+    this.router.navigate(['/signin']);
+
   }
 }

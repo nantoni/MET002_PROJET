@@ -41,7 +41,7 @@
         <a class="nav-link" [routerLink]="['/compte']">User: {{firstName}}</a>
       </li>
       <li *ngIf="authenticationService.isAuth" class="nav-item">
-        <a class="nav-link" href="#" (click)="authenticationService.logout()">Signout</a>
+        <a class="nav-link clickable" (click)="authenticationService.logout()">Signout</a>
       </li>
     </ul>
   </div>

@@ -1,0 +1,14 @@
+img {
+  width: 100%;
+  height: auto;
+}
+p {
+  font-family: Lato;
+}
+.clickable{
+  cursor: pointer;
+}
+
+.detailimg {
+  max-width: 50%;
+}

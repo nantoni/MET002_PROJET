@@ -20,11 +20,9 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.store
-      .select(state => state.panier.panier)
+      .select(state => state.state.panier)
       .subscribe(val => {
-        if (val) {
           this.compteurPanier = val.length;
-        }
       });
 
     this.firstName = 'FirstNameTest';
