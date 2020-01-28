@@ -1,1 +1,12 @@
-<p>detail works!</p>
+<div class="row">
+  <div class="mx-auto col-8">
+    <div class="card m-3">
+      <img (click)='log(current);' class="p-3 detailimg" src="{{current.image}}">
+      <div (click)='log(current);' class="card-body">{{current.name}}</div>
+        <div (click)='log(current);' class="card-footer bg-secondary text-white">{{current.size/1000}}L</div>
+        <div (click)='log(current);' class="card-footer bg-warning">{{current.price}}€</div>
+        <div (click)='log(current);' class="card-footer">{{current.description}}</div>
+        <div (click)='onProductClick(current)' class="card-footer bg-primary clickable">Ajouter au panier</div>
+    </div>
+  </div>
+</div>

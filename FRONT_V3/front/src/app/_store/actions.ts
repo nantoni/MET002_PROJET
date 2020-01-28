@@ -22,7 +22,7 @@ export class AddProduit {
 
 export class DelProduit {
   static readonly type = '[Product] Del';
-  constructor(public payload: Product) {}
+  constructor(public payload: number) {}
 }
 
 export class SetCurrentProduit {
