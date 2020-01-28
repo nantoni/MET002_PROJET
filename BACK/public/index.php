@@ -12,7 +12,7 @@ $jwt = new \Slim\Middleware\JwtAuthentication([
 	"path" => "/api",
 	"secure" => false,
 	"secret" => JWT_SECRET,
-	"passthrough" => ["/signin"],
+	"passthrough" => ["/signin", "/register"],
 	"attribute" => "decoded_token_data",
 	"algorithm" => ["HS256"],
 	"error" => function ($response, $arguments) {
@@ -45,9 +45,9 @@ $app->post('/signin', 'signin');
 // __clients__
 $app->get('/clients', 'getClients');
 $app->get('/api/client/{id}', 'getClient');
-$app->post('/api/client', 'addClient');
 $app->patch('/api/client/{id}', 'updateClient');
 $app->delete('/api/client/{id}', 'deleteClient');
+$app->post('/register', 'addClient');
 // __products__
 $app->get('/api/produits', 'getProduits');
 $app->get('/api/produit/{id}', 'getProduit');
