@@ -1,14 +1,14 @@
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { StateModel } from './state-model';
-import { SetCurrentUser, SetOrderBy, AddOrderGroup, DelOrderGroup } from './actions';
+import { SetCurrentUser, SetOrderBy, AddProducts} from './actions';
 import { User } from '@app/_models';
 
 @State<StateModel>({
   name: 'state',
   defaults: {
     currentUser: new User(),
-    orderBy: 'Nearest',
-    orderGroups: []
+    orderBy: 'Size',
+    products: []
   }
 })
 export class AppState {
@@ -24,8 +24,8 @@ export class AppState {
   }
 
   @Selector()
-  static getOrderGroups(state: StateModel) {
-    return state.orderGroups;
+  static getProducts(state: StateModel) {
+    return state.products;
   }
 
   @Action(SetCurrentUser)
@@ -44,26 +44,14 @@ export class AppState {
     patchState({ orderBy: payload });
   }
 
-  @Action(AddOrderGroup)
+  @Action(AddProducts)
   AddOrderGroup(
     { getState, patchState }: StateContext<StateModel>,
-    { payload }: AddOrderGroup
+    { payload }: AddProducts
   ) {
     const state = getState();
     patchState({
-      orderGroups: [...state.orderGroups, payload]
-    });
-  }
-
-  @Action(DelOrderGroup)
-  DelOrderGroup(
-    { getState, patchState }: StateContext<StateModel>,
-    { payload }: DelOrderGroup
-  ) {
-    const state = getState();
-    patchState({
-      orderGroups: [...state.orderGroups.slice(0, Number(payload)),
-                ...state.orderGroups.slice(Number(payload) + 1)]
+      products: [...state.products, payload]
     });
   }
 

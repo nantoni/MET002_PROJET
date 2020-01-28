@@ -1,4 +1,4 @@
-import { User, Group } from '@app/_models';
+import { User, Product } from '@app/_models';
 
 export class SetCurrentUser {
     static readonly type = '[User] Set';
@@ -10,12 +10,8 @@ export class SetOrderBy {
   constructor(public payload: string) {}
 }
 
-export class AddOrderGroup {
-  static readonly type = '[Group] Add';
-  constructor(public payload: Group) {}
+export class AddProducts {
+  static readonly type = '[Product] Add';
+  constructor(public payload: Product) {}
 }
 
-export class DelOrderGroup {
-  static readonly type = '[Group] Del';
-  constructor(public payload: Group) {}
-}

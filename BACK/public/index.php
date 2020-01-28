@@ -99,7 +99,20 @@ function signin($request, $response, $args)
 		);
 		$token_jwt = JWT::encode($payload, JWT_SECRET, "HS256");
 		$response = $response->withHeader("Authorization", "Bearer {$token_jwt}")->withHeader("Content-Type", "application/json");
-		$data = array('firstName' => $client->getFirstName(), 'email' => $client->getEmail());
+		
+		$data = "{'id': '" . $client->getId() 
+			. "', 'email': '" . $client->getEmail() 
+			. "', 'login': '" . $client->getLogin() 
+			. "', 'firstName': '" . $client->getFirstName() 
+			. "', 'lastName': '" . $client->getLastName() 
+			. "', 'address': '" . $client->getAddress() 
+			. "', 'postCode': '" . $client->getPostcode() 
+			. "', 'city': '" . $client->getCity() 
+			. "', 'country': '" . $client->getCountry() 
+			. "', 'phone': '" . $client->getPhone() 
+			. "', 'registerDate': '" . $client->getRegisterDate() 
+			. "'},\n";
+		
 		return $response->withHeader("Content-Type", "application/json")->withJson($data);
 	}	
 	// Otherwise return error 401

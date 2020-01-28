@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
 import { User } from '@app/_models';
-import { Router, Data } from '@angular/router';
+import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { SetCurrentUser } from '@app/_store/actions';
 
@@ -54,7 +54,7 @@ export class AuthenticationService {
         this.store.dispatch(
           new SetCurrentUser(user)
         );
-        this.router.navigate(['posts']);
+        this.router.navigate(['catalogue']);
         return user;
       }));
   }

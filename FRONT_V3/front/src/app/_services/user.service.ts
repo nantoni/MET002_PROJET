@@ -8,12 +8,8 @@ import { User } from '@app/_models';
 export class UserService {
   constructor(private http: HttpClient) { }
 
-  getAll() {
-    return this.http.get<User[]>(`${environment.apiUrl}/users`);
-  }
-
   register(user: User) {
-    return this.http.post(`${environment.apiUrl}/users`, user);
+    return this.http.post(`${environment.apiUrl}/register`, user);
   }
 
 }
