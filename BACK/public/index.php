@@ -100,18 +100,19 @@ function signin($request, $response, $args)
 		$token_jwt = JWT::encode($payload, JWT_SECRET, "HS256");
 		$response = $response->withHeader("Authorization", "Bearer {$token_jwt}")->withHeader("Content-Type", "application/json");
 		
-		$data = "{'id': '" . $client->getId() 
-			. "', 'email': '" . $client->getEmail() 
-			. "', 'login': '" . $client->getLogin() 
-			. "', 'firstName': '" . $client->getFirstName() 
-			. "', 'lastName': '" . $client->getLastName() 
-			. "', 'address': '" . $client->getAddress() 
-			. "', 'postCode': '" . $client->getPostcode() 
-			. "', 'city': '" . $client->getCity() 
-			. "', 'country': '" . $client->getCountry() 
-			. "', 'phone': '" . $client->getPhone() 
-			. "', 'registerDate': '" . $client->getRegisterDate() 
-			. "'},\n";
+		$data = '{"id": "' . $client->getId() 
+			. '", "email": "' . $client->getEmail() 
+			. '", "login": "' . $client->getLogin() 
+			. '", "firstName": "' . $client->getFirstName() 
+			. '", "lastName": "' . $client->getLastName() 
+			. '", "address": "' . $client->getAddress() 
+			. '", "postCode": "' . $client->getPostcode() 
+			. '", "city": "' . $client->getCity() 
+			. '", "country": "' . $client->getCountry() 
+			. '", "phone": "' . $client->getPhone() 
+			. '", "registerDate": "' . $client->getRegisterDate()
+			. '", "token" : "' . $token_jwt
+			. '"}';
 		
 		return $response->withHeader("Content-Type", "application/json")->withJson($data);
 	}	
@@ -297,19 +298,23 @@ function getProduits($request, $response, $args)
 	$productRepository = $entityManager->getRepository('Products');
 	$products = $productRepository->findAll();
 
-	$ret = "{'data': [\n";
+	$count = 0;
+	$ret = '{"data": [';
 	foreach ($products as $product){
-		$ret .= "{'id': '" . $product->getId() 
-			. "', 'name': '" . $product->getName() 
-			. "', 'image': '" . $product->getImage() 
-			. "', 'description': '" . $product->getDescription() 
-			. "', 'size': '" . $product->getSize() 
-			. "', 'price': '" . $product->getPrice() 
-			. "', 'addDate': '" . $product->getAddDate() 
-			. "', 'stockNumber': '" . $product->getStockNumber() 
-			. "'},\n";
+		if ($count > 0){
+			$ret .= ",";
+		}
+		$ret .= '{"id": "' . $product->getId() 
+			. '", "name": "' . $product->getName() 
+			. '", "image": "' . $product->getImage() 
+			. '", "description": "' . $product->getDescription() 
+			. '", "size": "' . $product->getSize() 
+			. '", "price": "' . $product->getPrice() 
+			. '", "addDate": "' . $product->getAddDate() 
+			. '", "stockNumber": "' . $product->getStockNumber() 
+			. '"}';
 	}
-	$ret .= "]}";
+	$ret .= ']}';
 
 	return $response->withHeader("Content-Type", "application/json")->write($ret);
 }
@@ -329,15 +334,15 @@ function getProduit($request, $response, $args)
 		exit(1);
 	}
 
-	$ret = "{'id': '" . $product->getId() 
-		. "', 'name': '" . $product->getName() 
-		. "', 'image': '" . $product->getImage() 
-		. "', 'description': '" . $product->getDescription() 
-		. "', 'size': '" . $product->getSize() 
-		. "', 'price': '" . $product->getPrice() 
-		. "', 'addDate': '" . $product->getAddDate() 
-		. "', 'stockNumber': '" . $product->getStockNumber() 
-		. "'}";
+	$ret = '{"id": "' . $product->getId() 
+		. '", "name": "' . $product->getName() 
+		. '", "image": "' . $product->getImage() 
+		. '", "description": "' . $product->getDescription() 
+		. '", "size": "' . $product->getSize() 
+		. '", "price": "' . $product->getPrice() 
+		. '", "addDate": "' . $product->getAddDate() 
+		. '", "stockNumber": "' . $product->getStockNumber() 
+		. '"}';
 
 	return $response->withHeader("Content-Type", "application/json")->write($ret);
 }

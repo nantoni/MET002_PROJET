@@ -49,10 +49,11 @@ export class AuthenticationService {
       .pipe(map(user => {
         console.log(user);
         // store user details and jwt token in local storage to keep user logged in between page refreshes
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        this.currentUserSubject.next(user);
+        localStorage.setItem('currentUser', user);
+        this.currentUserSubject.next(JSON.parse(user));
+        console.log(this.currentUserSubject);
         this.store.dispatch(
-          new SetCurrentUser(user)
+          new SetCurrentUser(JSON.parse(user))
         );
         this.router.navigate(['catalogue']);
         return user;

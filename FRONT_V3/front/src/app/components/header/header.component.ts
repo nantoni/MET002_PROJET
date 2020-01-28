@@ -1,6 +1,6 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 
-import { Store } from '@ngxs/store';
+import { Store, State } from '@ngxs/store';
 import { AuthenticationService } from '@app/_services';
 // import { PanierState } from "../../../../shared/states/panier-state";
 
@@ -13,14 +13,21 @@ import { AuthenticationService } from '@app/_services';
 
 export class HeaderComponent implements OnInit {
 
-  compteurPanier: number = 0;
+  compteurPanier = 0;
+  firstName: string;
 
   constructor(private store: Store, public authenticationService: AuthenticationService) {}
 
   ngOnInit() {
     this.store
       .select(state => state.panier.panier)
-      .subscribe(val => this.compteurPanier = val.length);
+      .subscribe(val => {
+        if (val) {
+          this.compteurPanier = val.length;
+        }
+      });
+
+    this.firstName = 'FirstNameTest';
   }
 
 }

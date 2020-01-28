@@ -19,7 +19,7 @@ export class CatalogueComponent implements OnInit {
   ngOnInit() {
     this.dataService.getProducts().subscribe(res => {
       // this.products = products;
-      console.log(res);
+      // console.log(res);
     });
     // this.store
     // .subscribe(val => {

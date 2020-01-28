@@ -3,5 +3,6 @@ import { Product, User } from '@app/_models';
 export class StateModel {
   currentUser: User;
   orderBy: string;
-  products: Product[];
+  panier: Product[];
+  currentProduit: Product;
 }
