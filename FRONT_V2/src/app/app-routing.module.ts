@@ -13,7 +13,8 @@ import { GroupsComponent } from './_components/groups/groups.component';
 import { NewGroupComponent } from './_components/groups/new-group/new-group.component';
 
 const routes: Routes = [
-  { path: 'posts', component: PostsViewComponent, canActivate: [AuthGuard] },
+  { path: 'posts', component: PostsViewComponent },
+  // { path: 'posts', component: PostsViewComponent, canActivate: [AuthGuard] },
   { path: 'newpost', component: NewPostComponent },
   { path: 'groups', component: GroupsComponent },
   { path: 'newgroup', component: NewGroupComponent },
