@@ -4,7 +4,7 @@ export class Product {
   name: string;
   image: string;
   description: string;
-  size: string;
+  size: number;
   price: number;
   adddate: string;
   stocknumber: number;

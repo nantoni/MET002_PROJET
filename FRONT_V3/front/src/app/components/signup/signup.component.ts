@@ -64,7 +64,6 @@ export class SignupComponent implements OnInit {
     this.loading = true;
 
     this.userService.register(this.registerForm.value)
-      .pipe(first())
       .subscribe(
         data => {
           this.alertService.success('Enregistrement réussi', true);
