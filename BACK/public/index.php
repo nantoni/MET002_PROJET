@@ -217,6 +217,7 @@ function addClient($request, $response)
 		echo "Created client with ID " . $client->getId() . "\n";
 	} catch(\Exception $e){
 		echo($e->getMessage());
+		return $response->withHeader("Content-Type", "application/json")->write("")->withStatus(418);
 		exit(1);
 	}
 

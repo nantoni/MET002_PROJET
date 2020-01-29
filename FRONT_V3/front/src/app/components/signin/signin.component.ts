@@ -32,7 +32,7 @@ export class SigninComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      email: ['', Validators.required],
       password: ['', Validators.required]
     });
 
@@ -52,8 +52,8 @@ export class SigninComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authenticationService.login(this.f.username.value, this.f.password.value)
-      // .pipe(first())
+    this.authenticationService.login(this.f.email.value, this.f.password.value)
+      .pipe(first())
       .subscribe(
         data => {
           console.log('auth done.');

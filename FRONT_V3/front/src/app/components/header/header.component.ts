@@ -25,7 +25,10 @@ export class HeaderComponent implements OnInit {
           this.compteurPanier = val.length;
       });
 
-    this.firstName = 'FirstNameTest';
+    this.store
+      .select(state => state.state.currentUser)
+      .subscribe(val => (this.firstName = val.firstName));
+
   }
 
 }

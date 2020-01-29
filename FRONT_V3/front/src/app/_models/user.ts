@@ -5,10 +5,10 @@ export class User {
   firstName: string;
   lastName: string;
   address: string;
-  postcode: string;
+  postCode: string;
   city: string;
   country: string;
   phone: string;
-  registerdate: string;
+  registerDate: string;
   token?: string;
 }

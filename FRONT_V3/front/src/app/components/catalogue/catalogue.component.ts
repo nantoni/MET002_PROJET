@@ -10,17 +10,18 @@ import { Product } from '@app/_models';
 })
 export class CatalogueComponent implements OnInit {
 
-  userId: number;
+  // userId: number;
   // products: Product[];
-  loading: boolean;
+  // loading: boolean;
 
-  constructor(private dataService: DataService) { }
+  // constructor(private dataService: DataService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.dataService.getProducts().subscribe(res => {
+    // this.dataService.getProducts().subscribe(res => {
       // this.products = products;
       // console.log(res);
-    });
+    // });
     // this.store
     // .subscribe(val => {
     //   this.userId = val;

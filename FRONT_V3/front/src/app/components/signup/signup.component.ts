@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService, UserService, AlertService } from '@app/_services';
 import { first } from 'rxjs/operators';
+import { User } from '@app/_models';
 
 @Component({
   selector: 'app-signup',
@@ -27,18 +28,22 @@ export class SignupComponent implements OnInit {
   ) {
     // redirect to home if already logged in
     if (this.authenticationService.isAuth) {
-      this.router.navigate(['/']);
+      this.router.navigate(['/catalogue']);
     }
   }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-      birthday: ['', Validators.required],
+      email: ['', Validators.compose([Validators.email, Validators.required])],
+      login: ['', [Validators.required]],
+      password: ['', [Validators.required]],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      phoneNumber: ['', Validators.required]
+      address: ['', [Validators.required]],
+      postCode: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+      country: ['', [Validators.required]],
+      phone: ['', Validators.compose([Validators.maxLength(10), Validators.minLength(10)])]
     });
 
     // get return url from route parameters or default to '/'
@@ -62,11 +67,11 @@ export class SignupComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.alertService.success('Registration successful', true);
+          this.alertService.success('Enregistrement réussi', true);
           this.router.navigate(['/signin']);
         },
         error => {
-          this.alertService.error(error);
+          this.error = error;
           this.loading = false;
         });
 

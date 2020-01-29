@@ -7,23 +7,7 @@ import { map } from 'rxjs/operators';
 @Injectable({ providedIn: 'root' })
 export class DataService {
   constructor(private http: HttpClient) {
-    if (localStorage.getItem('panier') !== undefined) {
 
-      const temp = JSON.parse(localStorage.getItem('panier'));
-
-      if (temp !== null) {
-        const tempUsr: User = temp;
-        tempUsr.token = temp.token;
-        this.store.dispatch(
-          new SetCurrentUser(tempUsr)
-        );
-      }
-
-      this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-      this.currentUser = this.currentUserSubject.asObservable();
-
-      console.log(this.currentUserSubject.value);
-    }
   }
 
   getProducts() {
