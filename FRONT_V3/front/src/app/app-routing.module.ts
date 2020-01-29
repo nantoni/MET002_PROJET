@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './_helpers';
 
 const routes: Routes = [
   {
@@ -8,19 +9,23 @@ const routes: Routes = [
   },
   {
     path: 'catalogue',
-    loadChildren: () => import('./components/catalogue/catalogue.module').then(m => m.CatalogueModule)
+    loadChildren: () => import('./components/catalogue/catalogue.module').then(m => m.CatalogueModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'compte',
-    loadChildren: () => import('./components/compte/compte.module').then(m => m.CompteModule)
+    loadChildren: () => import('./components/compte/compte.module').then(m => m.CompteModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'merci-commande',
-    loadChildren: () => import('./components/merci-commande/merci-commande.module').then(m => m.MerciCommandeModule)
+    loadChildren: () => import('./components/merci-commande/merci-commande.module').then(m => m.MerciCommandeModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'panier',
-    loadChildren: () => import('./components/panier/panier.module').then(m => m.PanierModule)
+    loadChildren: () => import('./components/panier/panier.module').then(m => m.PanierModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'signin',
@@ -32,7 +37,8 @@ const routes: Routes = [
   },
   {
     path: 'detail',
-    loadChildren: () => import('./components/detail/detail.module').then(m => m.DetailModule)
+    loadChildren: () => import('./components/detail/detail.module').then(m => m.DetailModule),
+    canActivate: [AuthGuard]
   },
   {
     path: '**',

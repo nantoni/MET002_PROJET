@@ -7,7 +7,7 @@ import { User, Product } from '@app/_models';
   name: 'state',
   defaults: {
     currentUser: new User(),
-    orderBy: 'Size',
+    orderBy: 'Tous',
     panier: [],
     currentProduit: new Product()
   }

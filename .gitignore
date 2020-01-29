@@ -1,4 +1,6 @@
 FRONT/node_modules/
 FRONT_V2/node_modules/
 FRONT_V2/dist/
+FRONT_V3/front/node_modules/
+FRONT_V3/front/dist/
 BACK/vendor/
