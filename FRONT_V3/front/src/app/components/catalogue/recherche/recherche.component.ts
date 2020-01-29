@@ -14,10 +14,9 @@ export class RechercheComponent implements OnInit {
     'Tous',
     '3L',
     '2L',
-    '1,5L',
+    '1.5L',
     '0.75L',
-    '0.5L',
-    '3L'
+    '0.5L'
   ];
 
   orderBy: string = this.orderList[0];
