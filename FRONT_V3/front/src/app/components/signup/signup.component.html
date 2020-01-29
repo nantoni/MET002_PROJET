@@ -61,7 +61,7 @@
               <div class="form-group">
                   <input placeholder="Telephone" type="phone" formControlName="phone" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
                   <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
-                      <div *ngIf="f.phone.errors.required">Telephone est requis</div>
+                      <div>Le numéro n'est pas valide</div>
                   </div>
               </div>
               <button [disabled]="loading" class="btn btn-primary">

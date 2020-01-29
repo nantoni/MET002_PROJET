@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService, UserService, AlertService } from '@app/_services';
-import { first } from 'rxjs/operators';
-import { User } from '@app/_models';
 
 @Component({
   selector: 'app-signup',
@@ -20,7 +18,6 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
     private userService: UserService,
@@ -47,7 +44,7 @@ export class SignupComponent implements OnInit {
     });
 
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+    // this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
   }
 
   // convenience getter for easy access to form fields
@@ -63,16 +60,40 @@ export class SignupComponent implements OnInit {
 
     this.loading = true;
 
-    this.userService.register(this.registerForm.value)
+
+    const user = {
+      email: this.f.email.value,
+      login: this.f.login.value,
+      password: this.f.password.value,
+      firstName: this.f.firstName.value,
+      lastName: this.f.lastName.value,
+      address: this.f.address.value,
+      postCode: this.f.postCode.value,
+      city: this.f.city.value,
+      country: this.f.country.value,
+      phone: this.f.phone.value
+    };
+
+    this.userService.register(user)
       .subscribe(
         data => {
           this.alertService.success('Enregistrement réussi', true);
           this.router.navigate(['/signin']);
         },
         error => {
-          this.error = error;
+          if (error == 200) {
+            this.router.navigate(['/signin']);
+          } else if (error == 418) {
+            this.error = 'Cet utilisateur existe déjà!';
+          } else {
+            this.error = error;
+          }
           this.loading = false;
-        });
+        },
+        () => {
+          this.router.navigate(['/signin']);
+        }
+      );
 
   }
 
