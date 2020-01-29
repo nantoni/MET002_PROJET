@@ -1,34 +1,34 @@
-import { Pipe, PipeTransform } from "@angular/core";
-import { Produit } from "../../shared/models/produit";
+import { Pipe, PipeTransform } from '@angular/core';
+import { Product } from './_models';
 
 @Pipe({
-  name: "produit"
+  name: 'produit'
 })
 export class ProduitPipe implements PipeTransform {
-  transform(produits: Produit[], filtre: string): any {
+  transform(produits: Product[], filtre: string): any {
     console.log(filtre);
     switch (filtre) {
-      case "priceAsc": {
+      case 'priceAsc': {
         return produits.sort((a, b) => {
-          return a.prix < b.prix ? -1 : a.prix > b.prix ? 1 : 0;
+          return a.price < b.price ? -1 : a.price > b.price ? 1 : 0;
         });
         break;
       }
-      case "priceDesc": {
+      case 'priceDesc': {
         return produits.sort((a, b) => {
-          return a.prix > b.prix ? -1 : a.prix < b.prix ? 1 : 0;
+          return a.price > b.price ? -1 : a.price < b.price ? 1 : 0;
         });
         break;
       }
-      case "sizeAsc": {
+      case 'sizeAsc': {
         return produits.sort((a, b) => {
-          return a.taille < b.taille ? -1 : a.taille > b.taille ? 1 : 0;
+          return a.size < b.size ? -1 : a.size > b.size ? 1 : 0;
         });
         break;
       }
-      case "sizeDesc": {
+      case 'sizeDesc': {
         return produits.sort((a, b) => {
-          return a.taille > b.taille ? -1 : a.taille < b.taille ? 1 : 0;
+          return a.size > b.size ? -1 : a.size < b.size ? 1 : 0;
         });
         break;
       }

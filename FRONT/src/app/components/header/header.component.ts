@@ -1,9 +1,9 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 
-import { Store } from "@ngxs/store";
-import { PanierState } from "../../../../shared/states/panier-state";
+import { Store, State } from '@ngxs/store';
+import { AuthenticationService } from '@app/_services';
+// import { PanierState } from "../../../../shared/states/panier-state";
 
-import { AuthenticationService } from "../../authentication.service"
 
 @Component({
   selector: 'app-header',
@@ -13,14 +13,22 @@ import { AuthenticationService } from "../../authentication.service"
 
 export class HeaderComponent implements OnInit {
 
-  compteurPanier: number = 0;
+  compteurPanier = 0;
+  firstName: string;
 
   constructor(private store: Store, public authenticationService: AuthenticationService) {}
 
   ngOnInit() {
     this.store
-      .select(state => state.panier.panier)
-      .subscribe(val => this.compteurPanier = val.length);
+      .select(state => state.state.panier)
+      .subscribe(val => {
+          this.compteurPanier = val.length;
+      });
+
+    this.store
+      .select(state => state.state.currentUser)
+      .subscribe(val => (this.firstName = val.firstName));
+
   }
 
 }

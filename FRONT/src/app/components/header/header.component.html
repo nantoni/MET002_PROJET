@@ -32,16 +32,16 @@
         </li>
 
       <li *ngIf="!authenticationService.isAuth" class="nav-item">
-        <a class="nav-link" [routerLink]="['/compte']">Signup</a>
+        <a class="nav-link" [routerLink]="['/signup']">Inscription</a>
       </li>
       <li *ngIf="!authenticationService.isAuth" class="nav-item">
-        <a class="nav-link" [routerLink]="['/connexion']">Signin</a>
+        <a class="nav-link" [routerLink]="['/signin']">Connexion</a>
       </li>
       <li *ngIf="authenticationService.isAuth" class="nav-item">
-        <a class="nav-link">User: {{authenticationService.currentUserValue.first_name}}</a>
+        <a class="nav-link" [routerLink]="['/compte']">User: {{firstName}}</a>
       </li>
       <li *ngIf="authenticationService.isAuth" class="nav-item">
-        <a class="nav-link" (click)="authenticationService.logout()">Signout</a>
+        <a class="nav-link clickable" (click)="authenticationService.logout()">Déconnexion</a>
       </li>
     </ul>
   </div>

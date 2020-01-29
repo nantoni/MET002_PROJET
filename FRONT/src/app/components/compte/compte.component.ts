@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngxs/store';
+import { User } from '@app/_models';
 
-import { User } from '../../../../shared/models/user';
-
-import { CompteService } from '../../compte.service';
 
 @Component({
   selector: 'app-compte',
@@ -11,18 +10,16 @@ import { CompteService } from '../../compte.service';
 })
 export class CompteComponent implements OnInit {
 
+  user: User;
 
-  usr: User = new User;
-  password_confirmation : String = "";
-
-  constructor(private compteService: CompteService) { }
-
-  submitToBack() {
-    this.compteService.postCompte(this.usr)
-    .subscribe(res => console.log(res));
-  }
+  constructor(private store: Store) { }
 
   ngOnInit() {
+    this.store
+    .select(state => state.state.currentUser)
+    .subscribe(val => (this.user = val));
+
+    console.log(this.user);
   }
 
 }

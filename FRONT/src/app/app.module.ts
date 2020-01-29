@@ -1,47 +1,34 @@
-import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
-import { FormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { NgxsModule } from '@ngxs/store';
 
-import { AppComponent } from "./app.component";
-import { MoteurComponent } from "./components/moteur/moteur.component";
-import { HeaderComponent } from "./components/header/header.component";
-import { NgxsModule } from "@ngxs/store";
-import { PanierState } from "../../shared/states/panier-state";
 import { AppRoutingModule } from './app-routing.module';
-import { AccueilComponent } from './components/accueil/accueil.component'
-import { Routes, RouterModule } from '@angular/router';
-import { CompteService } from './compte.service';
-
-
-const appRoutes: Routes = [
-  {
-    path: "",
-    component: AccueilComponent
-  },
-  {
-    path: '',
-    redirectTo: '/',
-    pathMatch: 'full'
-  }
-];
+import { AppComponent } from './app.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { JwtInterceptor, ErrorInterceptor } from './_helpers';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { AppState } from './_store/app-state';
 
 @NgModule({
-  imports: [
-    AppRoutingModule,
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    NgxsModule.forRoot([PanierState]),
-    RouterModule.forRoot(appRoutes)
-  ],
   declarations: [
     AppComponent,
-    MoteurComponent,
-    AccueilComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
-  bootstrap: [AppComponent],
-  providers: [CompteService],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    FormsModule,
+    NgxsModule.forRoot([AppState]),
+  ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

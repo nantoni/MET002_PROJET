@@ -1,7 +1,5 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { ProduitPipe } from "../../produit.pipe";
-import { ProduitService } from "../../produit.service";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { CompteComponent } from './compte.component';
 import { FormsModule } from '@angular/forms';

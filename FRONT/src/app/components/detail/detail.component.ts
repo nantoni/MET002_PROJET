@@ -1,37 +1,41 @@
-import { Component, OnInit } from "@angular/core";
-import { Produit } from "../../../../shared/models/produit";
+import { Component, OnInit } from '@angular/core';
 
-import { Store } from "@ngxs/store";
-import { PanierState } from "../../../../shared/states/panier-state";
-import { AddProduit } from "../../../../shared/actions/addProduit-action";
-import { ActivatedRoute } from "@angular/router";
+import { Store } from '@ngxs/store';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Product } from '@app/_models';
+import { AddProduit } from '@app/_store/actions';
 
 @Component({
-  selector: "app-detail",
-  templateUrl: "./detail.component.html",
-  styleUrls: ["./detail.component.css"]
+  selector: 'app-detail',
+  templateUrl: './detail.component.html',
+  styleUrls: ['./detail.component.css']
 })
 export class DetailComponent implements OnInit {
-  current: Produit;
+  current: Product = null;
 
-  constructor(private store: Store, private route: ActivatedRoute) {}
+  constructor(private store: Store, private router: Router) {}
 
   ngOnInit() {
     this.store
-      .select(state => state.panier.current)
+      .select(state => state.state.currentProduit)
       .subscribe(val => (this.current = val));
+
     console.log(this.current);
+
+    if (Object.entries(this.current).length === 0) {
+      this.router.navigate(['/catalogue']);
+    }
   }
 
-  log(produit: Produit) {
-    console.log(produit);
+  log(product: Product) {
+    console.log(product);
   }
 
-  addProduit(produit: Produit) {
-    this.store.dispatch(new AddProduit(produit));
+  addProduct(product: Product) {
+    this.store.dispatch(new AddProduit(product));
   }
 
-  onProduitClick(produit: Produit) {
-    this.addProduit(produit);
+  onProductClick(product: Product) {
+    this.addProduct(product);
   }
 }
