@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '@app/_services/data.service';
-import { Store } from '@ngxs/store';
-import { Product } from '@app/_models';
 
 @Component({
   selector: 'app-catalogue',
@@ -10,29 +7,10 @@ import { Product } from '@app/_models';
 })
 export class CatalogueComponent implements OnInit {
 
-  // userId: number;
-  // products: Product[];
-  // loading: boolean;
-
-  // constructor(private dataService: DataService) { }
   constructor() { }
 
   ngOnInit() {
-    // this.dataService.getProducts().subscribe(res => {
-      // this.products = products;
-      // console.log(res);
-    // });
-    // this.store
-    // .subscribe(val => {
-    //   this.userId = val;
-    //   // Get userGroups
-    //   console.log(this.userId);
-    //   // Get posts
-    //   this.dataService.getProducts().subscribe(products => {
-    //     // this.products = products;
-    //     // console.log(products);
-    //   });
-    // });
   }
+
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { Router } from '@angular/router';
 import { SetCurrentProduit, AddProduit } from '@app/_store/actions';
@@ -15,7 +15,7 @@ export class ProduitsComponent implements OnInit {
 
   products: Array<Product> = new Array<Product>();
 
-  @Input() filter: string;
+  filter = '';
 
   constructor(private store: Store, private dataService: DataService, private router: Router) {}
 
@@ -24,6 +24,10 @@ export class ProduitsComponent implements OnInit {
       console.log(val);
       this.products = val;
     });
+
+    this.store
+    .select(state => state.state.orderBy)
+    .subscribe(val => (this.filter = val));
   }
 
   log(val) {
